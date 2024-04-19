@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle information </title>
+    <script>
+         
+         function validForm()
+         {
+            var validFlag = true;
+            let vid = document.forms["vehReg"]["vid"]
+            let vehType = document.forms["vehReg"]["vehType"];
+            let vehname = document.forms["vehReg"]["vehName"];
+            let sel_name = document.forms["vehReg"]["namebx"]
+            let sel_mail = document.forms["vehReg"]["emailbx"]
+            let age = document.forms["vehReg"]["agebx"]
+            let pprice = document.forms["vehReg"]["ppbx"];
+            let res = document.getElementById("res")
+
+
+            let vehTypeerr = document.getElementById("vehTypeerr")
+            let ageerr = document.getElementById("agebxerr")
+            let vehNameerr = document.getElementById("vehNameerr")
+            let selnameerr = document.getElementById("namebxerr")
+            let selmailerr = document.getElementById("emailbxerr")
+            let priceerr = document.getElementById("ppbxerr")
+
+            let btn = document.getElementById("storebtn")
+
+         if(!validType(vehType,vehTypeerr))
+         {
+            validFlag = false;
+         }
+        if(!validType(vehname,vehNameerr))
+        {
+            validFlag = false;
+        }
+        if(!validName(sel_name,selnameerr))
+        {
+            validFlag = false;
+        }
+        if(!validAge(age,ageerr))
+        {
+            validFlag = false;
+        }
+        if(!validEmail(sel_mail,selmailerr))
+        {
+            validFlag = false;
+        }
+        if(!validPP(pprice,priceerr))
+        {
+            validFlag = false;
+        }
+
+         // form level validation 
+
+        if(validFlag == true)
+        {
+            console.log("validated");
+            res.style.color = "green"
+            res.innerHTML = "valid form"
+            // calc sell price
+            cal_selprice(vehType,pprice,age)
+            // showing the button for storing adta 
+            btn.hidden = false;
+            return false;
+        }
+        else 
+        {
+            console.log("not validated")
+            res.style.color = "red"
+            res.innerHTML = "not valid form "
+            btn.hidden = true;
+            return false;
+        }
+         // form level validation 
+         
+         } 
+
+         // valid function ends here 
+         
+    </script>
+</head>
+<body onload="autoGen(document.forms['vehReg']['vid'])">
+
+    <h3> Sell Old Vehicle </h3>
+    <form name="vehReg" onsubmit="return validForm()">
+
+        VID : <input name="vid" readonly > <br>
+        select the vehicle type : <select name="vehType" > 
+            <option value=""> Select Vehicle</option>
+            <option value="2wheel"> 2 wheelr</option>
+            <option value="4wheel"> 4 Wheel </option>
+        </select>
+        <span id="vehTypeerr"></span>
+        <br>
+        select the Vechile Name 
+        <select name="vehName"> 
+
+        </select>
+        <span id="vehNameerr"> </span> <br>
+        Enter the seller name : <input name="namebx" oninput="validForm()"> <span id="namebxerr"></span> <br>
+        enter the seller email : <input name="emailbx" oninput="validForm()"> <span id="emailbxerr"></span> <br>
+        Enter the age : <input name="agebx" oninput="validForm()"> <span id="agebxerr"></span> <br>
+        Enter the Purchase price : <input name="ppbx" oninput="validForm()"> <span id="ppbxerr"></span> <br>
+        Sell Price : <input name="selprice" readonly> <br>
+        <span id="res"> </span> <br>
+        <button value="submit"> Submit </button>
+    </form>
+
+    <button onclick="storeData()" hidden id="storebtn"> Store the data </button>
+    <button onclick="showData()"> Show  Data </button>
+    <button onclick="latest_data()"> Latest data </button>
+
+    <div class="" id="showdatadiv"></div>
+    <br> 
+    <div class="" id="latestdiv"></div>
+
+</body>
+<script src="main.js"> </script>
+</html>
